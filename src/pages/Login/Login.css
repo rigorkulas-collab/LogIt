@@ -1,0 +1,136 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    180deg, 
+    var(--primary-deep) 0%, 
+    var(--primary-dark) 100%
+  );
+  overflow-x: hidden;
+}
+
+/* Header Section */
+.login-header {
+  flex: 0 0 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  animation: headerFadeIn 0.8s ease-out forwards;
+}
+
+.login-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.login-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.04em;
+}
+
+.login-subtitle {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.02em;
+}
+
+/* Form Panel */
+.login-form-panel {
+  flex: 1;
+  background: white;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  padding: 40px 32px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
+  animation: panelSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-error {
+  background: #FEF2F2;
+  color: #EF4444;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid #FEE2E2;
+}
+
+.login-extra {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -8px;
+  margin-bottom: 32px;
+}
+
+.text-link {
+  background: none;
+  border: none;
+  color: var(--primary-deep);
+  font-family: var(--font-main);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.text-link.bold {
+  font-weight: 700;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.login-submit {
+  margin-bottom: 24px;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  color: #9CA3AF;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #E5E7EB;
+}
+
+.login-footer {
+  text-align: center;
+  font-size: 0.9375rem;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes headerFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes panelSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
