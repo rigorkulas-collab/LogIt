@@ -67,7 +67,15 @@ function App() {
       setLoading(false);
     });
 
-    return () => unsubscribe();
+    // Failsafe: Stop loading after 5 seconds even if Firestore hangs
+    const failsafe = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
+    return () => {
+      unsubscribe();
+      clearTimeout(failsafe);
+    };
   }, []);
 
   // 2. Sync Splash and Auth to handle Navigation
