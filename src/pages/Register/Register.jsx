@@ -17,7 +17,11 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
     school: '',
     otherSchool: '',
     company: '',
-    hours: '300'
+    position: '',
+    supervisor: '',
+    batch: '2025-2026',
+    requiredHrs: '300',
+    startDate: new Date().toISOString().split('T')[0]
   });
 
   const [loading, setLoading] = useState(false);
@@ -121,11 +125,48 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
           />
 
           <Input
-            label="Required OJT Hours"
-            type="number"
-            placeholder="300"
-            name="hours"
-            value={formData.hours}
+            label="Designated Position"
+            placeholder="e.g. Frontend Developer Intern"
+            name="position"
+            value={formData.position}
+            onChange={handleChange}
+            required
+          />
+
+          <Input
+            label="OJT Supervisor"
+            placeholder="e.g. Engr. Robert Santos"
+            name="supervisor"
+            value={formData.supervisor}
+            onChange={handleChange}
+            required
+          />
+
+          <div className="form-row">
+            <Input
+              label="Required Hrs"
+              type="number"
+              placeholder="300"
+              name="requiredHrs"
+              value={formData.requiredHrs}
+              onChange={handleChange}
+              required
+            />
+            <Input
+              label="School Batch"
+              placeholder="2025-2026"
+              name="batch"
+              value={formData.batch}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <Input
+            label="OJT Start Date"
+            type="date"
+            name="startDate"
+            value={formData.startDate}
             onChange={handleChange}
             required
           />
