@@ -24,8 +24,10 @@ function App() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [profileData, setProfileData] = useState(null);
 
+  // 1. Listen for Auth Changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setLoading(true); // Ensure loading is true while fetching
       if (currentUser) {
         setUser(currentUser);
         try {
@@ -67,15 +69,18 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  // Sync Splash animation and Firebase loading
+  // 2. Sync Splash and Auth to handle Navigation
   useEffect(() => {
-    if (!loading && isSplashDone) {
-      if (user && profileData) {
-        setAppState('DASHBOARD');
-      } else {
-        setAppState('LOGIN');
+    const checkNavigation = () => {
+      if (!loading && isSplashDone) {
+        if (user && profileData) {
+          setAppState('DASHBOARD');
+        } else {
+          setAppState('LOGIN');
+        }
       }
-    }
+    };
+    checkNavigation();
   }, [loading, isSplashDone, user, profileData]);
 
   const handleSplashComplete = () => {
