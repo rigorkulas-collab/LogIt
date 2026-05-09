@@ -11,11 +11,27 @@ import './AddLogModal.css';
 const AddLogModal = ({ isOpen, onClose, onAdd }) => {
   const [formData, setFormData] = useState({
     title: '',
-    hours: 8,
+    startTime: '09:00',
+    endTime: '18:00',
     date: new Date().toISOString().split('T')[0],
     mood: 'Happy',
     moodEmoji: '😄'
   });
+
+  const calculateHours = (start, end) => {
+    if (!start || !end) return 0;
+    const s = start.split(':').map(Number);
+    const e = end.split(':').map(Number);
+    
+    let diffMinutes = (e[0] * 60 + e[1]) - (s[0] * 60 + s[1]);
+    
+    // Standard 1-hour lunch deduction if shift is 5 hours or more
+    if (diffMinutes >= 300) {
+      diffMinutes -= 60;
+    }
+    
+    return Math.max(0, diffMinutes / 60);
+  };
 
   const moods = [
     { label: 'Happy', emoji: '😄' },
@@ -27,16 +43,23 @@ const AddLogModal = ({ isOpen, onClose, onAdd }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAdd(formData);
+    const calculatedHours = calculateHours(formData.startTime, formData.endTime);
+    onAdd({
+      ...formData,
+      hours: calculatedHours
+    });
     // Reset form
     setFormData({
       title: '',
-      hours: 8,
+      startTime: '09:00',
+      endTime: '18:00',
       date: new Date().toISOString().split('T')[0],
       mood: 'Happy',
       moodEmoji: '😄'
     });
   };
+
+  const calculatedHours = calculateHours(formData.startTime, formData.endTime);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="New OJT Log">
@@ -57,15 +80,28 @@ const AddLogModal = ({ isOpen, onClose, onAdd }) => {
             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
             required
           />
+        </div>
+
+        <div className="form-row">
           <Input
-            label="Hours"
-            type="number"
-            min="1"
-            max="24"
-            value={formData.hours}
-            onChange={(e) => setFormData({ ...formData, hours: parseInt(e.target.value) })}
+            label="Start Time"
+            type="time"
+            value={formData.startTime}
+            onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
             required
           />
+          <Input
+            label="End Time"
+            type="time"
+            value={formData.endTime}
+            onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
+            required
+          />
+        </div>
+
+        <div className="calculation-preview">
+          <span>Total Hours: <strong>{calculatedHours} hrs</strong></span>
+          {calculatedHours >= 4 && <span className="lunch-note">(1 hr lunch deducted)</span>}
         </div>
 
         <div className="mood-selection">

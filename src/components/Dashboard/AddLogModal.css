@@ -6,8 +6,31 @@
 
 .form-row {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
+}
+
+.calculation-preview {
+  background: #F9FAFB;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9375rem;
+  color: #374151;
+  border: 1px dashed #E5E7EB;
+}
+
+.calculation-preview strong {
+  color: var(--primary-deep);
+  font-size: 1.125rem;
+}
+
+.lunch-note {
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  font-weight: 500;
 }
 
 .mood-selection {

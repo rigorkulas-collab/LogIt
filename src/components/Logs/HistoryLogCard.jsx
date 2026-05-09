@@ -5,6 +5,15 @@ import { Clock } from 'lucide-react';
  * Enhanced Log Card for the History Page
  */
 const HistoryLogCard = ({ log }) => {
+  const formatTime = (timeStr) => {
+    if (!timeStr) return "---";
+    const [hours, minutes] = timeStr.split(':');
+    const h = parseInt(hours);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const h12 = h % 12 || 12;
+    return `${h12}:${minutes} ${ampm}`;
+  };
+
   const statusColors = {
     APPROVED: { bg: '#ECFDF5', text: '#059669' },
     PENDING: { bg: '#FFF7ED', text: '#D97706' },
@@ -35,7 +44,9 @@ const HistoryLogCard = ({ log }) => {
         </div>
         <div className="tag duration-tag">
           <Clock size={14} className="tag-icon-svg" />
-          <span className="tag-label">{log.hours} hrs</span>
+          <span className="tag-label">
+            {formatTime(log.startTime)} – {formatTime(log.endTime)} • {log.hours} hrs
+          </span>
         </div>
       </div>
     </div>

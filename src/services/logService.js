@@ -55,6 +55,8 @@ const MOCK_LOGS = [
     day: '22',
     month: 'MAR',
     hours: 8,
+    startTime: '09:00',
+    endTime: '17:00',
     status: 'APPROVED',
     mood: 'Happy',
     moodEmoji: '😄'
@@ -66,6 +68,8 @@ const MOCK_LOGS = [
     day: '21',
     month: 'MAR',
     hours: 8,
+    startTime: '09:00',
+    endTime: '17:00',
     status: 'APPROVED',
     mood: 'Happy',
     moodEmoji: '😄'
