@@ -92,6 +92,7 @@
   background: white;
   border-radius: 20px;
   overflow: hidden;
+  border: 1px solid #D1D5DB;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.02);
 }
 
