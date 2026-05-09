@@ -17,12 +17,7 @@ const ForgotPassword = ({ onBack }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    // Simulate sending reset link
-    setTimeout(() => {
-      setLoading(false);
-      setIsSent(true);
-    }, 1500);
+    setIsSent(true);
   };
 
   return (

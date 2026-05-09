@@ -3,7 +3,13 @@ import React from 'react';
 /**
  * Circular Progress Bar Component
  */
-const CircularProgress = ({ percentage, size = 120, strokeWidth = 10 }) => {
+const CircularProgress = ({ 
+  percentage, 
+  size = 120, 
+  strokeWidth = 10, 
+  color = "white", 
+  bgColor = "rgba(255, 255, 255, 0.2)" 
+}) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const offset = circumference - (percentage / 100) * circumference;
@@ -16,7 +22,7 @@ const CircularProgress = ({ percentage, size = 120, strokeWidth = 10 }) => {
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke="rgba(255, 255, 255, 0.2)"
+          stroke={bgColor}
           strokeWidth={strokeWidth}
           fill="transparent"
         />
@@ -25,7 +31,7 @@ const CircularProgress = ({ percentage, size = 120, strokeWidth = 10 }) => {
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke="white"
+          stroke={color}
           strokeWidth={strokeWidth}
           fill="transparent"
           strokeDasharray={circumference}

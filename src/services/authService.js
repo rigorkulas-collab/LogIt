@@ -14,23 +14,14 @@ export const authService = {
    * Simulates a login request
    */
   login: async (email, password) => {
-    return new Promise((resolve, reject) => {
-      // Simulate network delay
-      setTimeout(() => {
-        if (email === MOCK_USER.email && password === 'password123') {
-          resolve({
-            success: true,
-            user: MOCK_USER,
-            token: 'mock-jwt-token'
-          });
-        } else {
-          reject({
-            success: false,
-            message: 'Invalid email or password. Use student@school.edu / password123'
-          });
-        }
-      }, 1500);
-    });
+    if (email === 'student@school.edu' && password === 'password123') {
+      return {
+        id: '1',
+        name: 'Zachary User',
+        email: 'student@school.edu'
+      };
+    }
+    throw new Error('Invalid email or password');
   },
 
   /**

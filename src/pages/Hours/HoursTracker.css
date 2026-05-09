@@ -37,7 +37,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.02);
   position: relative;
 }
 
@@ -50,7 +50,7 @@
 
 .hero-percentage {
   font-size: 2.5rem;
-  font-weight: 900;
+  font-weight: 700;
   color: #1A1A2E;
   letter-spacing: -0.04em;
 }
@@ -76,7 +76,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
 }
 
 .stat-tile-value {
@@ -90,7 +90,6 @@
   font-size: 0.6875rem;
   font-weight: 700;
   color: #6B7280;
-  text-transform: uppercase;
   letter-spacing: 0.02em;
 }
 
@@ -99,7 +98,7 @@
   background: white;
   border-radius: 24px;
   padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.02);
 }
 
 .chart-header {

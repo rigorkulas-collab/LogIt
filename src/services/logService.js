@@ -1,54 +1,93 @@
 /**
  * Mock Log Service
- * Provides sample data for the Dashboard.
+ * Provides expanded sample data for the Dashboard and History pages.
  */
 
 const MOCK_LOGS = [
   {
     id: '1',
-    date: '27',
-    month: 'MAR',
     title: 'UI/UX Design Sprint',
-    time: '8:00 AM - 5:00 PM',
+    date: 'March 27, 2026',
+    day: '27',
+    month: 'MAR',
     hours: 8,
-    status: 'PENDING'
+    status: 'PENDING',
+    mood: 'Happy',
+    moodEmoji: '😄'
   },
   {
     id: '2',
-    date: '26',
-    month: 'MAR',
     title: 'Frontend Development',
-    time: '9:00 AM - 6:00 PM',
+    date: 'March 26, 2026',
+    day: '26',
+    month: 'MAR',
     hours: 8,
-    status: 'APPROVED'
+    status: 'APPROVED',
+    mood: 'Neutral',
+    moodEmoji: '😐'
   },
   {
     id: '3',
-    date: '25',
-    month: 'MAR',
     title: 'Client Meeting & Docs',
-    time: '10:00 AM - 4:00 PM',
+    date: 'March 25, 2026',
+    day: '25',
+    month: 'MAR',
     hours: 6,
-    status: 'APPROVED'
+    status: 'APPROVED',
+    mood: 'Happy',
+    moodEmoji: '😄'
+  },
+  {
+    id: '4',
+    title: 'Bug Fixing & Testing',
+    date: 'March 24, 2026',
+    day: '24',
+    month: 'MAR',
+    hours: 7,
+    status: 'REJECTED',
+    mood: 'Tired',
+    moodEmoji: '😫'
+  },
+  {
+    id: '5',
+    title: 'API Integration',
+    date: 'March 22, 2026',
+    day: '22',
+    month: 'MAR',
+    hours: 8,
+    status: 'APPROVED',
+    mood: 'Happy',
+    moodEmoji: '😄'
+  },
+  {
+    id: '6',
+    title: 'Database Design',
+    date: 'March 21, 2026',
+    day: '21',
+    month: 'MAR',
+    hours: 8,
+    status: 'APPROVED',
+    mood: 'Happy',
+    moodEmoji: '😄'
   }
 ];
 
 export const logService = {
   getRecentLogs: async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(MOCK_LOGS), 300);
-    });
+    return MOCK_LOGS.slice(0, 3);
+  },
+
+  getAllLogs: async () => {
+    return MOCK_LOGS;
   },
 
   getProgressData: async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({
-        percentage: 60,
-        rendered: 180,
-        required: 300,
-        remaining: 120
-      }), 300);
-    });
+    return {
+      percentage: 60,
+      rendered: 180,
+      required: 300,
+      remaining: 120
+    };
   }
 };
 

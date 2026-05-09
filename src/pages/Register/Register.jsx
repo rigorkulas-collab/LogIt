@@ -29,12 +29,7 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    // Simulate registration
-    setTimeout(() => {
-      setLoading(false);
-      onRegisterSuccess();
-    }, 1500);
+    onRegisterSuccess();
   };
 
   const schools = [

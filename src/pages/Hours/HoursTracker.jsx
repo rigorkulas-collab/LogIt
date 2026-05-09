@@ -33,7 +33,13 @@ const HoursTracker = ({ onBack, onTabChange }) => {
       <div className="hours-content">
         {/* ... existing sections ... */}
         <section className="hero-progress-card">
-          <CircularProgress percentage={60} size={180} strokeWidth={12} />
+          <CircularProgress 
+            percentage={60} 
+            size={180} 
+            strokeWidth={12} 
+            color="var(--primary-deep)"
+            bgColor="#F3F4F6"
+          />
           <div className="hero-progress-labels">
             <span className="hero-percentage">60%</span>
             <span className="hero-label">OJT Completion</span>
