@@ -9,7 +9,7 @@ import './Login.css';
  * Login Page Component
  * Features a high-fidelity mobile-first layout with smooth transitions.
  */
-const Login = ({ onLoginSuccess, onRegisterClick }) => {
+const Login = ({ onLoginSuccess, onRegisterClick, onForgotClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -69,7 +69,7 @@ const Login = ({ onLoginSuccess, onRegisterClick }) => {
           />
 
           <div className="login-extra">
-            <button type="button" className="text-link">Forgot Password?</button>
+            <button type="button" className="text-link" onClick={onForgotClick}>Forgot Password?</button>
           </div>
 
           <Button type="submit" loading={loading} className="login-submit">

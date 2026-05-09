@@ -15,6 +15,7 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
     password: '',
     confirmPassword: '',
     school: '',
+    otherSchool: '',
     company: '',
     hours: '300'
   });
@@ -103,6 +104,17 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
             onChange={handleChange}
             required
           />
+
+          {formData.school === 'other' && (
+            <Input
+              label="Specify School"
+              placeholder="Enter your school name"
+              name="otherSchool"
+              value={formData.otherSchool}
+              onChange={handleChange}
+              required
+            />
+          )}
 
           <Input
             label="OJT Company Name"

@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import Splash from './components/Splash/Splash'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
 import './index.css'
 
 function App() {
-  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, DASHBOARD
+  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, FORGOT_PASSWORD, DASHBOARD
   const [user, setUser] = useState(null);
 
   const handleSplashComplete = () => {
@@ -18,7 +19,6 @@ function App() {
   };
 
   const handleRegisterSuccess = () => {
-    // After registration, send them to login
     setAppState('LOGIN');
   };
 
@@ -32,6 +32,7 @@ function App() {
         <Login 
           onLoginSuccess={handleLoginSuccess} 
           onRegisterClick={() => setAppState('REGISTER')}
+          onForgotClick={() => setAppState('FORGOT_PASSWORD')}
         />
       )}
 
@@ -40,6 +41,10 @@ function App() {
           onBackToLogin={() => setAppState('LOGIN')} 
           onRegisterSuccess={handleRegisterSuccess}
         />
+      )}
+
+      {appState === 'FORGOT_PASSWORD' && (
+        <ForgotPassword onBack={() => setAppState('LOGIN')} />
       )}
 
       {appState === 'DASHBOARD' && (
