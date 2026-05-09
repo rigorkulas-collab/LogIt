@@ -20,6 +20,8 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
     onUpdate(formData);
   };
 
+  if (!formData) return null;
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Edit Profile">
       <form onSubmit={handleSubmit} className="edit-profile-form">

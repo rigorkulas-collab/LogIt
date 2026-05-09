@@ -26,14 +26,38 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        // Fetch profile data
-        const docRef = doc(db, "users", currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setProfileData(docSnap.data());
-          if (appState === 'SPLASH' || appState === 'LOGIN' || appState === 'REGISTER') {
-            setAppState('DASHBOARD');
+        try {
+          const docRef = doc(db, "users", currentUser.uid);
+          const docSnap = await getDoc(docRef);
+          
+          if (docSnap.exists()) {
+            setProfileData(docSnap.data());
+          } else {
+            setProfileData({
+              name: currentUser.displayName || "OJT Student",
+              email: currentUser.email,
+              school: "Not Set",
+              company: "Not Set",
+              requiredHrs: "300",
+              batch: "2026",
+              avatarUrl: null
+            });
           }
+        } catch (error) {
+          console.error("Firestore error:", error);
+          setProfileData({
+            name: "OJT Student",
+            email: currentUser.email,
+            school: "Error Loading",
+            company: "Error Loading",
+            requiredHrs: "300",
+            batch: "---",
+            avatarUrl: null
+          });
+        }
+
+        if (appState === 'SPLASH' || appState === 'LOGIN' || appState === 'REGISTER') {
+          setAppState('DASHBOARD');
         }
       } else {
         setUser(null);
@@ -46,7 +70,11 @@ function App() {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [appState]);
+
+  if (loading) {
+    return <Splash onComplete={() => {}} />;
+  }
 
   const handleSplashComplete = () => {
     setAppState('LOGIN');
@@ -162,12 +190,14 @@ function App() {
         onAdd={handleAddLog} 
       />
 
-      <EditProfileModal 
-        isOpen={isEditModalOpen} 
-        onClose={() => setIsEditModalOpen(false)} 
-        profileData={profileData}
-        onUpdate={handleUpdateProfile}
-      />
+      {profileData && (
+        <EditProfileModal 
+          isOpen={isEditModalOpen} 
+          onClose={() => setIsEditModalOpen(false)} 
+          profileData={profileData}
+          onUpdate={handleUpdateProfile}
+        />
+      )}
     </div>
   )
 }
