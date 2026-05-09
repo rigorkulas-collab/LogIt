@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Brand Colors */
-  --primary-deep: hsl(220, 80%, 30%);
-  --primary-dark: hsl(225, 75%, 25%);
+  /* Slightly lighter Brand Colors */
+  --primary-deep: hsl(220, 80%, 38%);
+  --primary-dark: hsl(225, 75%, 32%);
   --accent-green: #4CAF50;
   
   /* UI Colors */
