@@ -10,10 +10,15 @@ import './Dashboard.css';
  * Dashboard Page Component
  * The main hub of the application showing progress and recent logs.
  */
-const Dashboard = ({ user, onTabChange, onFabClick }) => {
+const Dashboard = ({ user, profileData, onTabChange, onFabClick }) => {
   const [logs, setLogs] = useState([]);
   const [progress, setProgress] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
+
+  const getInitials = (name) => {
+    if (!name) return "JD";
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
@@ -38,7 +43,11 @@ const Dashboard = ({ user, onTabChange, onFabClick }) => {
         <div className="header-top">
           <h1 className="header-brand">LogIt</h1>
           <div className="user-avatar">
-            <span>{user?.name ? user.name.split(' ').map(n => n[0]).join('') : 'JD'}</span>
+            {profileData.avatarUrl ? (
+              <img src={profileData.avatarUrl} alt="Avatar" className="avatar-img-small" />
+            ) : (
+              <span>{getInitials(user?.name)}</span>
+            )}
           </div>
         </div>
         

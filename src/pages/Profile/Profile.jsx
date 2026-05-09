@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { Camera } from 'lucide-react';
 import ProfileRow from '../../components/Profile/ProfileRow';
 import BottomNav from '../../components/Dashboard/BottomNav';
 import './Profile.css';
@@ -7,10 +8,27 @@ import './Profile.css';
  * Profile Page Component
  * Shows user details, school/company info, and account actions.
  */
-const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit }) => {
+const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit, onUpdate }) => {
+  const fileInputRef = useRef(null);
+
   const getInitials = (name) => {
     if (!name) return "JD";
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
+  const handleAvatarClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        onUpdate({ ...profileData, avatarUrl: reader.result }); 
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const formatDate = (dateString) => {
@@ -21,10 +39,28 @@ const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit 
 
   return (
     <div className="profile-page">
+      {/* Hidden File Input */}
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        onChange={handleAvatarChange} 
+        accept="image/*" 
+        style={{ display: 'none' }} 
+      />
+
       {/* Hero Header */}
       <header className="profile-header">
-        <div className="profile-avatar-large">
-          {getInitials(user?.name)}
+        <div className="profile-avatar-container" onClick={handleAvatarClick}>
+          <div className="profile-avatar-large">
+            {profileData.avatarUrl ? (
+              <img src={profileData.avatarUrl} alt="Avatar" className="avatar-img" />
+            ) : (
+              getInitials(user?.name)
+            )}
+            <div className="avatar-edit-overlay">
+              <Camera size={20} color="white" />
+            </div>
+          </div>
         </div>
         <h1 className="profile-user-name">{user?.name || "Juan dela Cruz"}</h1>
         <p className="profile-user-subtitle">OJT Student • Batch {profileData.batch}</p>

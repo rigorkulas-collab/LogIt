@@ -24,7 +24,8 @@ function App() {
     requiredHrs: "300",
     supervisor: "Ms. Maria Santos",
     startDate: "2026-02-01",
-    batch: "2026"
+    batch: "2026",
+    avatarUrl: null
   });
 
   const handleSplashComplete = () => {
@@ -91,6 +92,7 @@ function App() {
       {appState === 'DASHBOARD' && (
         <Dashboard 
           user={user} 
+          profileData={profileData}
           onTabChange={navigateToTab}
           onFabClick={() => setIsModalOpen(true)}
         />
@@ -120,6 +122,7 @@ function App() {
           onTabChange={navigateToTab}
           onFabClick={() => setIsModalOpen(true)}
           onEdit={() => setIsEditModalOpen(true)}
+          onUpdate={handleUpdateProfile}
         />
       )}
 
