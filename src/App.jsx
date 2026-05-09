@@ -6,10 +6,11 @@ import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
 import Dashboard from './pages/Dashboard/Dashboard'
 import HoursTracker from './pages/Hours/HoursTracker'
 import LogHistory from './pages/Logs/LogHistory'
+import Profile from './pages/Profile/Profile'
 import './index.css'
 
 function App() {
-  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, FORGOT_PASSWORD, DASHBOARD, HOURS, LOGS
+  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, FORGOT_PASSWORD, DASHBOARD, HOURS, LOGS, PROFILE
   const [user, setUser] = useState(null);
 
   const handleSplashComplete = () => {
@@ -25,11 +26,16 @@ function App() {
     setAppState('LOGIN');
   };
 
+  const handleLogout = () => {
+    setUser(null);
+    setAppState('LOGIN');
+  };
+
   const navigateToTab = (tabId) => {
     if (tabId === 'home') setAppState('DASHBOARD');
     if (tabId === 'hours') setAppState('HOURS');
     if (tabId === 'logs') setAppState('LOGS');
-    // profile can be added later
+    if (tabId === 'profile') setAppState('PROFILE');
   };
 
   return (
@@ -74,6 +80,14 @@ function App() {
       {appState === 'LOGS' && (
         <LogHistory 
           onBack={() => setAppState('DASHBOARD')} 
+          onTabChange={navigateToTab}
+        />
+      )}
+
+      {appState === 'PROFILE' && (
+        <Profile 
+          user={user} 
+          onLogout={handleLogout}
           onTabChange={navigateToTab}
         />
       )}

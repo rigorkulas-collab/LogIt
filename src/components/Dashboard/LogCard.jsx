@@ -4,12 +4,12 @@ import React from 'react';
  * Log Card Component for displaying individual log entries
  */
 const LogCard = ({ log }) => {
-  const { date, month, title, time, hours, status } = log;
+  const { day, month, title, time, hours, status } = log;
 
   return (
     <div className="log-card">
       <div className="log-date-badge">
-        <span className="date-day">{date}</span>
+        <span className="date-day">{day}</span>
         <span className="date-month">{month}</span>
       </div>
       
