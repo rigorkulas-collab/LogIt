@@ -10,8 +10,10 @@ export const getFriendlyErrorMessage = (error) => {
   if (code.includes('auth/invalid-email')) {
     return "The email address you entered isn't valid.";
   }
-  if (code.includes('auth/user-not-found') || code.includes('auth/wrong-password')) {
-    return "Invalid email or password. Please try again.";
+  if (code.includes('auth/user-not-found') || 
+      code.includes('auth/wrong-password') || 
+      code.includes('auth/invalid-credential')) {
+    return "Invalid email or password. Please check your credentials.";
   }
   if (code.includes('auth/email-already-in-use')) {
     return "This email is already registered. Try logging in instead.";
@@ -35,5 +37,5 @@ export const getFriendlyErrorMessage = (error) => {
   }
 
   // Default fallback
-  return "Oops! Something went wrong. Please try again.";
+  return "Unable to complete request. Please try again.";
 };
