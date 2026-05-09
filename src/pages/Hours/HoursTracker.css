@@ -1,0 +1,204 @@
+.hours-page {
+  min-height: 100vh;
+  background: #F9FAFB;
+  padding-bottom: 120px;
+}
+
+.hours-header {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.hours-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1A1A2E;
+}
+
+.hours-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Hero Progress */
+.hero-progress-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  position: relative;
+}
+
+.hero-progress-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.hero-percentage {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1A1A2E;
+  letter-spacing: -0.04em;
+}
+
+.hero-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #6B7280;
+}
+
+/* Stats Tile Grid */
+.stats-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-tile {
+  background: white;
+  padding: 16px 8px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.stat-tile-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-deep);
+  margin-bottom: 4px;
+}
+
+.stat-tile-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Chart Section */
+.chart-section-card {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.chart-title {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #1A1A2E;
+}
+
+.bar-chart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 140px;
+  padding-top: 20px;
+}
+
+.bar-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.bar-wrapper {
+  width: 32px;
+  height: 100px;
+  background: #F3F4F6;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.bar-fill {
+  width: 100%;
+  background: var(--primary-deep);
+  border-radius: 4px;
+  transition: height 1s ease-out;
+}
+
+.bar-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9CA3AF;
+}
+
+/* Estimated Card */
+.estimated-card {
+  background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-dark) 100%);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: white;
+  box-shadow: 0 12px 24px rgba(30, 58, 138, 0.2);
+}
+
+.calendar-icon-bg {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.estimated-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.estimated-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-bottom: 4px;
+}
+
+.estimated-date {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Reuse CircularProgress styles but allow override */
+.hero-progress-card .circular-progress-wrapper {
+  margin-bottom: 0;
+}
+
+.hero-progress-card .progress-text {
+  display: none; /* Hide text inside circle for this view as per design */
+}

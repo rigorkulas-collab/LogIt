@@ -6,15 +6,9 @@
 
 /* Header */
 .dashboard-header {
-  background: linear-gradient(
-    180deg, 
-    var(--primary-deep) 0%, 
-    var(--primary-dark) 100%
-  );
-  padding: 60px 24px 80px;
+  background: var(--primary-deep);
+  padding: 40px 24px 32px;
   color: white;
-  border-bottom-left-radius: 32px;
-  border-bottom-right-radius: 32px;
 }
 
 .header-top {
@@ -60,20 +54,19 @@
 /* Progress Card */
 .stats-container {
   padding: 0 24px;
-  margin-top: -50px;
+  margin-top: 24px;
   margin-bottom: 32px;
 }
 
 .progress-card {
-  background: var(--primary-deep);
-  background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-dark) 100%);
+  background: linear-gradient(135deg, var(--primary-deep) 0%, hsl(220, 85%, 58%) 100%);
   border-radius: 24px;
   padding: 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 24px;
   color: white;
   box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
 }
@@ -114,7 +107,7 @@
 .stat-item {
   display: flex;
   gap: 8px;
-  font-size: 0.9375rem;
+  font-size: 0.8125rem;
 }
 
 .stat-label {

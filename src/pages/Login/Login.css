@@ -2,11 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(
-    180deg, 
-    var(--primary-deep) 0%, 
-    var(--primary-dark) 100%
-  );
+  background: var(--primary-deep);
   overflow-x: hidden;
   animation: fadeIn 0.6s ease-in-out forwards;
 }

@@ -9,10 +9,15 @@ import './Dashboard.css';
  * Dashboard Page Component
  * The main hub of the application showing progress and recent logs.
  */
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, onTabChange }) => {
   const [logs, setLogs] = useState([]);
   const [progress, setProgress] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    onTabChange(tabId);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +87,7 @@ const Dashboard = ({ user }) => {
       </section>
 
       {/* Navigation */}
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
     </div>
   );
 };

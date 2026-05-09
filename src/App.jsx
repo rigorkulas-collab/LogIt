@@ -4,10 +4,11 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
 import Dashboard from './pages/Dashboard/Dashboard'
+import HoursTracker from './pages/Hours/HoursTracker'
 import './index.css'
 
 function App() {
-  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, FORGOT_PASSWORD, DASHBOARD
+  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, FORGOT_PASSWORD, DASHBOARD, HOURS
   const [user, setUser] = useState(null);
 
   const handleSplashComplete = () => {
@@ -21,6 +22,12 @@ function App() {
 
   const handleRegisterSuccess = () => {
     setAppState('LOGIN');
+  };
+
+  const navigateToTab = (tabId) => {
+    if (tabId === 'home') setAppState('DASHBOARD');
+    if (tabId === 'hours') setAppState('HOURS');
+    // logs and profile can be added later
   };
 
   return (
@@ -49,7 +56,17 @@ function App() {
       )}
 
       {appState === 'DASHBOARD' && (
-        <Dashboard user={user} />
+        <Dashboard 
+          user={user} 
+          onTabChange={navigateToTab}
+        />
+      )}
+
+      {appState === 'HOURS' && (
+        <HoursTracker 
+          onBack={() => setAppState('DASHBOARD')} 
+          onTabChange={navigateToTab}
+        />
       )}
     </div>
   )

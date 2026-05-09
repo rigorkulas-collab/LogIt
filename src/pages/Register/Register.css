@@ -2,11 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(
-    180deg, 
-    var(--primary-deep) 0%, 
-    var(--primary-dark) 100%
-  );
+  background: var(--primary-deep);
   /* Enable full page scrolling */
   overflow-y: auto;
 }
