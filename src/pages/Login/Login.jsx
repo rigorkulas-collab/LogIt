@@ -43,7 +43,7 @@ const Login = ({ onLoginSuccess, onRegisterClick, onForgotClick }) => {
       {/* Bottom Section: White Form Panel */}
       <div className="login-form-panel">
         <form onSubmit={handleSubmit} className="login-form">
-          {error && <div className="login-error">{error}</div>}
+          {error && <div className="error-box">{error}</div>}
 
           <Input
             id="login-email"

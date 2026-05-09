@@ -83,7 +83,7 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
       {/* Form Panel */}
       <div className="register-form-panel">
         <form onSubmit={handleSubmit} className="register-form">
-          {error && <div className="register-error" style={{ color: '#DC2626', background: '#FEF2F2', padding: '12px', borderRadius: '10px', marginBottom: '16px', fontSize: '0.875rem', fontWeight: '600', textAlign: 'center' }}>{error}</div>}
+          {error && <div className="error-box">{error}</div>}
           
           <Input
             label="Full Name"
