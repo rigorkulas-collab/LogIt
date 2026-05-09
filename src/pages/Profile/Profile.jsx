@@ -11,7 +11,7 @@ const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit,
   const [isUploading, setIsUploading] = useState(false);
 
   const getInitials = (name) => {
-    if (!name) return "JD";
+    if (!name) return "??";
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
 
@@ -72,7 +72,7 @@ const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit,
             </div>
           )}
         </div>
-        <h1 className="profile-user-name">{user?.name || "Juan dela Cruz"}</h1>
+        <h1 className="profile-user-name">{profileData?.name || user?.email?.split('@')[0] || "OJT Student"}</h1>
         <p className="profile-user-subtitle">OJT Student • Batch {profileData.batch}</p>
       </header>
 
@@ -82,7 +82,7 @@ const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit,
           <ProfileRow label="School" value={profileData.school} />
           <ProfileRow label="Company" value={profileData.company} />
           <ProfileRow label="Position" value={profileData.position} />
-          <ProfileRow label="Email" value={user?.email || "juan@email.com"} />
+          <ProfileRow label="Email" value={user?.email || "---"} />
         </div>
 
         {/* OJT Progress Card */}

@@ -16,7 +16,7 @@ const Dashboard = ({ user, profileData, onTabChange, onFabClick }) => {
   const [activeTab, setActiveTab] = useState('home');
 
   const getInitials = (name) => {
-    if (!name) return "JD";
+    if (!name) return "??";
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
 
