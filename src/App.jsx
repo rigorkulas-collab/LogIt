@@ -8,6 +8,7 @@ import HoursTracker from './pages/Hours/HoursTracker'
 import LogHistory from './pages/Logs/LogHistory'
 import Profile from './pages/Profile/Profile'
 import AddLogModal from './components/Dashboard/AddLogModal'
+import EditProfileModal from './components/Profile/EditProfileModal'
 import logService from './services/logService'
 import './index.css'
 
@@ -15,6 +16,16 @@ function App() {
   const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, FORGOT_PASSWORD, DASHBOARD, HOURS, LOGS, PROFILE
   const [user, setUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [profileData, setProfileData] = useState({
+    school: "Far Eastern University",
+    company: "Acme Corp Philippines",
+    position: "UI/UX Design Intern",
+    requiredHrs: "300",
+    supervisor: "Ms. Maria Santos",
+    startDate: "2026-02-01",
+    batch: "2026"
+  });
 
   const handleSplashComplete = () => {
     setAppState('LOGIN');
@@ -32,6 +43,11 @@ function App() {
   const handleLogout = () => {
     setUser(null);
     setAppState('LOGIN');
+  };
+
+  const handleUpdateProfile = (newData) => {
+    setProfileData(newData);
+    setIsEditModalOpen(false);
   };
 
   const handleAddLog = async (newLog) => {
@@ -99,18 +115,29 @@ function App() {
       {appState === 'PROFILE' && (
         <Profile 
           user={user} 
+          profileData={profileData}
           onLogout={handleLogout}
           onTabChange={navigateToTab}
           onFabClick={() => setIsModalOpen(true)}
+          onEdit={() => setIsEditModalOpen(true)}
         />
       )}
 
-      {/* Global Modal */}
+      {/* Global Modals */}
       <AddLogModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         onAdd={handleAddLog} 
       />
+
+      {user && (
+        <EditProfileModal 
+          isOpen={isEditModalOpen} 
+          onClose={() => setIsEditModalOpen(false)} 
+          profileData={profileData}
+          onUpdate={handleUpdateProfile}
+        />
+      )}
     </div>
   )
 }

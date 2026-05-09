@@ -7,21 +7,16 @@ import './Profile.css';
  * Profile Page Component
  * Shows user details, school/company info, and account actions.
  */
-const Profile = ({ user, onLogout, onTabChange, onFabClick }) => {
-  // Mock data for the OJT specific details
-  const ojtDetails = {
-    school: "Far Eastern University",
-    company: "Acme Corp Philippines",
-    position: "UI/UX Design Intern",
-    requiredHrs: "300 hours",
-    supervisor: "Ms. Maria Santos",
-    startDate: "Feb 1, 2026",
-    batch: "2026"
-  };
-
+const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit }) => {
   const getInitials = (name) => {
     if (!name) return "JD";
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "---";
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   return (
@@ -32,28 +27,31 @@ const Profile = ({ user, onLogout, onTabChange, onFabClick }) => {
           {getInitials(user?.name)}
         </div>
         <h1 className="profile-user-name">{user?.name || "Juan dela Cruz"}</h1>
-        <p className="profile-user-subtitle">OJT Student • Batch {ojtDetails.batch}</p>
+        <p className="profile-user-subtitle">OJT Student • Batch {profileData.batch}</p>
       </header>
 
       <div className="profile-content">
         {/* Institutional Info Card */}
         <div className="profile-info-card">
-          <ProfileRow label="School" value={ojtDetails.school} />
-          <ProfileRow label="Company" value={ojtDetails.company} />
-          <ProfileRow label="Position" value={ojtDetails.position} />
+          <ProfileRow label="School" value={profileData.school} />
+          <ProfileRow label="Company" value={profileData.company} />
+          <ProfileRow label="Position" value={profileData.position} />
           <ProfileRow label="Email" value={user?.email || "juan@email.com"} />
         </div>
 
         {/* OJT Progress Card */}
         <div className="profile-info-card">
-          <ProfileRow label="Required Hrs" value={ojtDetails.requiredHrs} />
-          <ProfileRow label="Supervisor" value={ojtDetails.supervisor} />
-          <ProfileRow label="Start Date" value={ojtDetails.startDate} />
+          <ProfileRow label="Required Hrs" value={`${profileData.requiredHrs} hours`} />
+          <ProfileRow label="Supervisor" value={profileData.supervisor} />
+          <ProfileRow label="Start Date" value={formatDate(profileData.startDate)} />
         </div>
 
         {/* Actions */}
         <div className="profile-actions">
-          <button className="btn btn-primary profile-btn">
+          <button 
+            className="btn btn-primary profile-btn"
+            onClick={onEdit}
+          >
             Edit Profile
           </button>
           <button 

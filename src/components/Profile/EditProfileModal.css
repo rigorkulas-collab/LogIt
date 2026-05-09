@@ -1,0 +1,17 @@
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-profile-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.save-profile-btn {
+  margin-top: 12px;
+  height: 56px;
+  border-radius: 16px;
+}
