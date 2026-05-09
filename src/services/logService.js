@@ -50,12 +50,15 @@ export const logService = {
     if (!user) return [];
 
     try {
+      console.log("🔍 Fetching ALL logs for UID:", user.uid);
       const q = query(
         collection(db, 'logs'),
         where('userId', '==', user.uid),
         orderBy('date', 'desc')
       );
       const querySnapshot = await getDocs(q);
+      console.log("📄 getAllLogs: found", querySnapshot.size, "documents");
+      
       return querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
@@ -82,7 +85,11 @@ export const logService = {
         createdAt: new Date().toISOString()
       };
       
+      console.log("📤 Attempting to save new log:", logEntry);
+      
       const docRef = await addDoc(collection(db, 'logs'), logEntry);
+      
+      console.log("✅ Log saved successfully! ID:", docRef.id);
       return { id: docRef.id, ...logEntry };
     } catch (error) {
       console.error("Error adding log:", error);
@@ -98,16 +105,23 @@ export const logService = {
     if (!user) return { percentage: 0, rendered: 0, required: requiredHrs, remaining: requiredHrs };
 
     try {
+      console.log("🔍 Fetching progress for UID:", user.uid);
       const q = query(
         collection(db, 'logs'),
         where('userId', '==', user.uid)
       );
       const querySnapshot = await getDocs(q);
       
+      console.log("📄 Total logs found in Firestore:", querySnapshot.size);
+
       const totalHours = querySnapshot.docs.reduce((sum, doc) => {
         const data = doc.data();
-        return sum + (Number(data.hours) || 0);
+        const hrs = Number(data.hours) || 0;
+        return sum + hrs;
       }, 0);
+
+      console.log("⏱️ Total Hours Calculated:", totalHours);
+      console.log("🎯 Required Hours:", requiredHrs);
 
       const percentage = Math.min(100, Math.round((totalHours / requiredHrs) * 100));
       

@@ -165,6 +165,8 @@ function App() {
 
       {appState === 'HOURS' && (
         <HoursTracker 
+          user={user}
+          profileData={profileData}
           onBack={() => setAppState('DASHBOARD')} 
           onTabChange={navigateToTab}
           onFabClick={() => setIsModalOpen(true)}
@@ -173,6 +175,8 @@ function App() {
 
       {appState === 'LOGS' && (
         <LogHistory 
+          user={user}
+          profileData={profileData}
           onBack={() => setAppState('DASHBOARD')} 
           onTabChange={navigateToTab}
           onFabClick={() => setIsModalOpen(true)}
