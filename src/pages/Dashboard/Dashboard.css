@@ -71,7 +71,9 @@
   padding: 24px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
   color: white;
   box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
 }

@@ -3,6 +3,7 @@ import Splash from './components/Splash/Splash'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword'
+import Dashboard from './pages/Dashboard/Dashboard'
 import './index.css'
 
 function App() {
@@ -48,20 +49,7 @@ function App() {
       )}
 
       {appState === 'DASHBOARD' && (
-        <div className="flex-center" style={{ height: '100vh', flexDirection: 'column', textAlign: 'center', padding: '20px' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--primary-deep)' }}>
-            Welcome, {user?.name}!
-          </h2>
-          <p style={{ color: '#6B7280', marginTop: '16px', maxWidth: '300px' }}>
-            You have successfully logged in to LogItV2.
-          </p>
-          <button 
-            onClick={() => setAppState('LOGIN')}
-            style={{ marginTop: '32px', background: 'none', border: 'none', color: 'var(--primary-deep)', fontWeight: 700, cursor: 'pointer' }}
-          >
-            Log Out
-          </button>
-        </div>
+        <Dashboard user={user} />
       )}
     </div>
   )
