@@ -11,6 +11,7 @@ import './HoursTracker.css';
 const HoursTracker = ({ onBack, onTabChange, onFabClick, profileData }) => {
   const [progress, setProgress] = useState(null);
   const [daysLogged, setDaysLogged] = useState(0);
+  const [estimatedDate, setEstimatedDate] = useState('---');
   const [weeklyStats, setWeeklyStats] = useState([
     { label: 'Mon', value: 0 },
     { label: 'Tue', value: 0 },
@@ -55,6 +56,21 @@ const HoursTracker = ({ onBack, onTabChange, onFabClick, profileData }) => {
       
       const stats = calculateWeeklyData(allLogs);
       setWeeklyStats(stats);
+
+      // Calculate Estimated Completion
+      if (uniqueDates.size > 0 && pData.remaining > 0) {
+        const avgPerDay = pData.rendered / uniqueDates.size;
+        if (avgPerDay > 0) {
+          const daysLeft = Math.ceil(pData.remaining / avgPerDay);
+          const completionDate = new Date();
+          completionDate.setDate(completionDate.getDate() + daysLeft);
+          
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          setEstimatedDate(completionDate.toLocaleDateString(undefined, options));
+        }
+      } else if (pData.remaining <= 0) {
+        setEstimatedDate('Completed! 🎉');
+      }
     };
     fetchData();
   }, [profileData]);
@@ -103,7 +119,7 @@ const HoursTracker = ({ onBack, onTabChange, onFabClick, profileData }) => {
           </div>
           <div className="estimated-info">
             <span className="estimated-label">Estimated Completion</span>
-            <span className="estimated-date">May 15, 2026</span>
+            <span className="estimated-date">{estimatedDate}</span>
           </div>
         </section>
       </div>
