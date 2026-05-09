@@ -18,10 +18,12 @@ import './index.css'
 function App() {
   const [appState, setAppState] = useState('SPLASH'); 
   const [user, setUser] = useState(null);
+  const [isSplashDone, setIsSplashDone] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [profileData, setProfileData] = useState(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
@@ -55,29 +57,29 @@ function App() {
             avatarUrl: null
           });
         }
-
-        if (appState === 'SPLASH' || appState === 'LOGIN' || appState === 'REGISTER') {
-          setAppState('DASHBOARD');
-        }
       } else {
         setUser(null);
         setProfileData(null);
-        if (appState !== 'SPLASH' && appState !== 'REGISTER') {
-          setAppState('LOGIN');
-        }
       }
       setLoading(false);
     });
 
     return () => unsubscribe();
-  }, [appState]);
+  }, []);
 
-  if (loading) {
-    return <Splash onComplete={() => {}} />;
-  }
+  // Sync Splash animation and Firebase loading
+  useEffect(() => {
+    if (!loading && isSplashDone) {
+      if (user && profileData) {
+        setAppState('DASHBOARD');
+      } else {
+        setAppState('LOGIN');
+      }
+    }
+  }, [loading, isSplashDone, user, profileData]);
 
   const handleSplashComplete = () => {
-    setAppState('LOGIN');
+    setIsSplashDone(true);
   };
 
   const handleLoginSuccess = (userData) => {
