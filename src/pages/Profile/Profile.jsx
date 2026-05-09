@@ -57,9 +57,9 @@ const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit,
             ) : (
               getInitials(user?.name)
             )}
-            <div className="avatar-edit-overlay">
-              <Camera size={20} color="white" />
-            </div>
+          </div>
+          <div className="avatar-edit-overlay">
+            <Camera size={16} color="white" />
           </div>
         </div>
         <h1 className="profile-user-name">{user?.name || "Juan dela Cruz"}</h1>
