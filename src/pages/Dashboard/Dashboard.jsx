@@ -27,14 +27,18 @@ const Dashboard = ({ user, profileData, onTabChange, onFabClick }) => {
 
   const fetchData = async () => {
     const logsData = await logService.getRecentLogs();
-    const progressData = await logService.getProgressData();
+    const progressData = await logService.getProgressData(profileData?.requiredHrs || 300);
     setLogs(logsData);
     setProgress(progressData);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [profileData]);
+
+  if (!profileData) {
+    return <div className="dashboard-page loading-screen">Loading your OJT hub...</div>;
+  }
 
   return (
     <div className="dashboard-page">
@@ -43,17 +47,17 @@ const Dashboard = ({ user, profileData, onTabChange, onFabClick }) => {
         <div className="header-top">
           <h1 className="header-brand">LogIt</h1>
           <div className="user-avatar">
-            {profileData.avatarUrl ? (
+            {profileData?.avatarUrl ? (
               <img src={profileData.avatarUrl} alt="Avatar" className="avatar-img-small" />
             ) : (
-              <span>{getInitials(user?.name)}</span>
+              <span>{getInitials(profileData?.name || profileData?.fullName)}</span>
             )}
           </div>
         </div>
         
         <div className="welcome-section">
           <p className="greeting">Good morning 👋</p>
-          <h2 className="user-name">{user?.name || 'Juan dela Cruz'}</h2>
+          <h2 className="user-name">{profileData?.name || profileData?.fullName || 'OJT Student'}</h2>
         </div>
       </header>
 

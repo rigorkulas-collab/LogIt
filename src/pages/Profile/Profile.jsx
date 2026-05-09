@@ -1,15 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../lib/firebase';
 import { Camera } from 'lucide-react';
 import ProfileRow from '../../components/Profile/ProfileRow';
 import BottomNav from '../../components/Dashboard/BottomNav';
 import './Profile.css';
 
-/**
- * Profile Page Component
- * Shows user details, school/company info, and account actions.
- */
 const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit, onUpdate }) => {
   const fileInputRef = useRef(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const getInitials = (name) => {
     if (!name) return "JD";
@@ -20,14 +19,21 @@ const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit,
     fileInputRef.current.click();
   };
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        onUpdate({ ...profileData, avatarUrl: reader.result }); 
-      };
-      reader.readAsDataURL(file);
+    if (file && user) {
+      setIsUploading(true);
+      try {
+        const storageRef = ref(storage, `avatars/${user.uid}`);
+        await uploadBytes(storageRef, file);
+        const url = await getDownloadURL(storageRef);
+        onUpdate({ ...profileData, avatarUrl: url });
+      } catch (error) {
+        console.error("Error uploading avatar:", error);
+        alert("Failed to upload image.");
+      } finally {
+        setIsUploading(false);
+      }
     }
   };
 
@@ -50,17 +56,21 @@ const Profile = ({ user, profileData, onLogout, onTabChange, onFabClick, onEdit,
 
       {/* Hero Header */}
       <header className="profile-header">
-        <div className="profile-avatar-container" onClick={handleAvatarClick}>
+        <div className={`profile-avatar-container ${isUploading ? 'uploading' : ''}`} onClick={!isUploading ? handleAvatarClick : undefined}>
           <div className="profile-avatar-large">
-            {profileData.avatarUrl ? (
+            {isUploading ? (
+              <div className="avatar-loading">...</div>
+            ) : profileData?.avatarUrl ? (
               <img src={profileData.avatarUrl} alt="Avatar" className="avatar-img" />
             ) : (
-              getInitials(user?.name)
+              getInitials(profileData?.name || profileData?.fullName)
             )}
           </div>
-          <div className="avatar-edit-overlay">
-            <Camera size={16} color="white" />
-          </div>
+          {!isUploading && (
+            <div className="avatar-edit-overlay">
+              <Camera size={16} color="white" />
+            </div>
+          )}
         </div>
         <h1 className="profile-user-name">{user?.name || "Juan dela Cruz"}</h1>
         <p className="profile-user-subtitle">OJT Student • Batch {profileData.batch}</p>

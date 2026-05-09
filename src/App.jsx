@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { auth, db } from './lib/firebase'
 import Splash from './components/Splash/Splash'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
@@ -13,20 +16,37 @@ import logService from './services/logService'
 import './index.css'
 
 function App() {
-  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, FORGOT_PASSWORD, DASHBOARD, HOURS, LOGS, PROFILE
+  const [appState, setAppState] = useState('SPLASH'); 
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [profileData, setProfileData] = useState({
-    school: "Far Eastern University",
-    company: "Acme Corp Philippines",
-    position: "UI/UX Design Intern",
-    requiredHrs: "300",
-    supervisor: "Ms. Maria Santos",
-    startDate: "2026-02-01",
-    batch: "2026",
-    avatarUrl: null
-  });
+  const [profileData, setProfileData] = useState(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        // Fetch profile data
+        const docRef = doc(db, "users", currentUser.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setProfileData(docSnap.data());
+          if (appState === 'SPLASH' || appState === 'LOGIN' || appState === 'REGISTER') {
+            setAppState('DASHBOARD');
+          }
+        }
+      } else {
+        setUser(null);
+        setProfileData(null);
+        if (appState !== 'SPLASH' && appState !== 'REGISTER') {
+          setAppState('LOGIN');
+        }
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleSplashComplete = () => {
     setAppState('LOGIN');
@@ -41,14 +61,23 @@ function App() {
     setAppState('LOGIN');
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await authService.logout();
     setUser(null);
     setAppState('LOGIN');
   };
 
-  const handleUpdateProfile = (newData) => {
-    setProfileData(newData);
-    setIsEditModalOpen(false);
+  const handleUpdateProfile = async (newData) => {
+    if (!user) return;
+    try {
+      const userRef = doc(db, "users", user.uid);
+      await setDoc(userRef, newData, { merge: true });
+      setProfileData(newData);
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Failed to save profile changes.");
+    }
   };
 
   const handleAddLog = async (newLog) => {

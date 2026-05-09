@@ -1,38 +1,84 @@
+import { 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signOut 
+} from 'firebase/auth';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../lib/firebase';
+
 /**
- * Mock Authentication Service
- * Simulates API calls for login and session management.
+ * Firebase Authentication Service
+ * Handles live user sign-in, registration, and session management.
  */
-
-const MOCK_USER = {
-  id: '12345',
-  email: 'student@school.edu',
-  name: 'Zachary User'
-};
-
 export const authService = {
   /**
-   * Simulates a login request
+   * Registers a new user and creates their profile in Firestore
    */
-  login: async (email, password) => {
-    if (email === 'student@school.edu' && password === 'password123') {
+  register: async (email, password, profileData) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Initialize the user's document in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        uid: user.uid,
+        email: user.email,
+        ...profileData,
+        createdAt: new Date().toISOString()
+      });
+
       return {
-        id: '1',
-        name: 'Zachary User',
-        email: 'student@school.edu'
+        id: user.uid,
+        email: user.email,
+        ...profileData
       };
+    } catch (error) {
+      console.error("Registration error:", error);
+      throw error;
     }
-    throw new Error('Invalid email or password');
   },
 
   /**
-   * Simulates logout
+   * Logs in an existing user
+   */
+  login: async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Fetch profile data from Firestore
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        return {
+          id: user.uid,
+          ...docSnap.data()
+        };
+      } else {
+        return {
+          id: user.uid,
+          email: user.email,
+          name: user.displayName || 'OJT Student'
+        };
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
+    }
+  },
+
+  /**
+   * Signs out the current user
    */
   logout: async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ success: true });
-      }, 500);
-    });
+    try {
+      await signOut(auth);
+      return { success: true };
+    } catch (error) {
+      console.error("Logout error:", error);
+      throw error;
+    }
   }
 };
 

@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import Select from '../../components/UI/Select';
+import authService from '../../services/authService';
 import './Register.css';
 
-/**
- * Register Page Component
- * Multi-field form for user registration with full-page scrolling.
- */
 const Register = ({ onBackToLogin, onRegisterSuccess }) => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -25,15 +22,38 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onRegisterSuccess();
+    setError('');
+
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { email, password, ...profileFields } = formData;
+      // Map fullName to name for profileData consistency
+      const profileData = {
+        name: profileFields.fullName,
+        ...profileFields
+      };
+      
+      await authService.register(email, password, profileData);
+      onRegisterSuccess();
+    } catch (err) {
+      setError(err.message || 'Failed to create account');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const schools = [
@@ -55,6 +75,8 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
       {/* Form Panel */}
       <div className="register-form-panel">
         <form onSubmit={handleSubmit} className="register-form">
+          {error && <div className="register-error" style={{ color: '#DC2626', background: '#FEF2F2', padding: '12px', borderRadius: '10px', marginBottom: '16px', fontSize: '0.875rem', fontWeight: '600', textAlign: 'center' }}>{error}</div>}
+          
           <Input
             label="Full Name"
             placeholder="Juan dela Cruz"
