@@ -4,6 +4,8 @@ import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import BackButton from '../../components/UI/BackButton';
 import lockKeyIcon from '../../assets/lock-key.svg';
+import authService from '../../services/authService';
+import { getFriendlyErrorMessage } from '../../lib/errorUtils';
 import './ForgotPassword.css';
 
 /**
@@ -14,10 +16,21 @@ const ForgotPassword = ({ onBack }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSent(true);
+    setError('');
+    setLoading(true);
+
+    try {
+      await authService.resetPassword(email);
+      setIsSent(true);
+    } catch (err) {
+      setError(getFriendlyErrorMessage(err));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,6 +56,7 @@ const ForgotPassword = ({ onBack }) => {
             </div>
 
             <form onSubmit={handleSubmit} className="forgot-form">
+              {error && <div className="error-box">{error}</div>}
               <Input
                 label="Email Address"
                 type="email"
