@@ -34,10 +34,12 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-gutter: stable;
+  width: 100%;
 }
 
 body {
+  width: 100%;
+  position: relative;
   font-family: var(--font-main);
   background: var(--primary-deep);
   color: var(--white);
