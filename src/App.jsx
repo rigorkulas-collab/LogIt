@@ -130,14 +130,12 @@ function App() {
         onAdd={handleAddLog} 
       />
 
-      {user && (
-        <EditProfileModal 
-          isOpen={isEditModalOpen} 
-          onClose={() => setIsEditModalOpen(false)} 
-          profileData={profileData}
-          onUpdate={handleUpdateProfile}
-        />
-      )}
+      <EditProfileModal 
+        isOpen={isEditModalOpen} 
+        onClose={() => setIsEditModalOpen(false)} 
+        profileData={profileData}
+        onUpdate={handleUpdateProfile}
+      />
     </div>
   )
 }

@@ -16,16 +16,81 @@
 .header-top-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding: 0 24px 20px;
 }
 
-.history-page-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #1A1A2E;
+.title-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin-left: -8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
 }
 
+.title-dropdown-trigger:active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.history-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1A1A2E;
+  letter-spacing: -0.02em;
+}
+
+.dropdown-chevron {
+  color: #9CA3AF;
+  margin-top: 2px;
+}
+
+/* Filter List in Modal */
+.filter-options-list {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.filter-option-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #F3F4F6;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.filter-option-item:last-child {
+  border-bottom: none;
+}
+
+.filter-option-item.active {
+  background: #F9FAFB;
+}
+
+.filter-option-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.filter-option-item.active .filter-option-label {
+  color: var(--primary-deep);
+}
+
+.check-icon {
+  color: var(--primary-deep);
+}
+
+/* Search Section */
 .search-section {
   padding: 0 24px 20px;
 }
@@ -60,38 +125,6 @@
 .search-input:focus {
   outline: none;
   background: #E5E7EB;
-}
-
-/* Filter Tabs */
-.filters-tab-bar {
-  display: flex;
-  padding: 0 16px;
-  gap: 8px;
-  overflow-x: auto;
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
-}
-
-.filters-tab-bar::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for Chrome/Safari */
-}
-
-.filter-tab {
-  padding: 12px 20px;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  font-family: var(--font-main);
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #6B7280;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-}
-
-.filter-tab.active {
-  color: var(--primary-deep);
-  border-bottom-color: var(--primary-deep);
 }
 
 /* History List */

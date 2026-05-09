@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { ChevronDown, Check } from 'lucide-react';
 import BackButton from '../../components/UI/BackButton';
 import SearchBar from '../../components/Logs/SearchBar';
 import HistoryLogCard from '../../components/Logs/HistoryLogCard';
 import BottomNav from '../../components/Dashboard/BottomNav';
+import Modal from '../../components/UI/Modal';
 import logService from '../../services/logService';
 import './LogHistory.css';
 
@@ -14,6 +16,7 @@ const LogHistory = ({ onBack, onTabChange, onFabClick }) => {
   const [logs, setLogs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const filters = ['All', 'Pending', 'Approved', 'Rejected'];
 
@@ -24,6 +27,11 @@ const LogHistory = ({ onBack, onTabChange, onFabClick }) => {
     };
     fetchLogs();
   }, []);
+
+  const handleFilterSelect = (filter) => {
+    setActiveFilter(filter);
+    setIsFilterOpen(false);
+  };
 
   const filteredLogs = logs.filter(log => {
     const matchesSearch = log.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -37,27 +45,37 @@ const LogHistory = ({ onBack, onTabChange, onFabClick }) => {
       <header className="history-header">
         <div className="header-top-row">
           <BackButton onClick={onBack} />
-          <h1 className="history-page-title">Log History</h1>
+          <div className="title-dropdown-trigger" onClick={() => setIsFilterOpen(true)}>
+            <h1 className="history-page-title">{activeFilter} Logs</h1>
+            <ChevronDown size={20} className="dropdown-chevron" />
+          </div>
         </div>
 
         {/* Search */}
         <div className="search-section">
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
         </div>
+      </header>
 
-        {/* Filters */}
-        <div className="filters-tab-bar">
+      {/* Filter Bottom Sheet */}
+      <Modal 
+        isOpen={isFilterOpen} 
+        onClose={() => setIsFilterOpen(false)} 
+        title="Filter Logs"
+      >
+        <div className="filter-options-list">
           {filters.map(filter => (
             <button
               key={filter}
-              className={`filter-tab ${activeFilter === filter ? 'active' : ''}`}
-              onClick={() => setActiveFilter(filter)}
+              className={`filter-option-item ${activeFilter === filter ? 'active' : ''}`}
+              onClick={() => handleFilterSelect(filter)}
             >
-              {filter}
+              <span className="filter-option-label">{filter} Logs</span>
+              {activeFilter === filter && <Check size={20} className="check-icon" />}
             </button>
           ))}
         </div>
-      </header>
+      </Modal>
 
       {/* Logs List */}
       <div className="history-list-container">
