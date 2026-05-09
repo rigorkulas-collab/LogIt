@@ -22,7 +22,6 @@
 
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-dark);
-  transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
@@ -124,4 +123,27 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* Back Button Circle */
+.back-btn-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #F3F4F6;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #1A1A2E;
+  transition: all 0.2s ease;
+}
+
+.back-btn-circle:hover {
+  background: #E5E7EB;
+}
+
+.back-btn-circle:active {
+  transform: scale(0.95);
 }

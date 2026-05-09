@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
+import BackButton from '../../components/UI/BackButton';
 import lockKeyIcon from '../../assets/lock-key.svg';
 import './ForgotPassword.css';
 
@@ -28,9 +29,7 @@ const ForgotPassword = ({ onBack }) => {
     <div className="forgot-password-page">
       {/* Header */}
       <div className="forgot-header">
-        <button className="back-button" onClick={onBack}>
-          <ArrowLeft size={24} />
-        </button>
+        <BackButton onClick={onBack} />
         <h1 className="header-title">Forgot Password</h1>
       </div>
 
