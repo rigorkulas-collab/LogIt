@@ -8,6 +8,12 @@
     var(--primary-dark) 100%
   );
   overflow-x: hidden;
+  animation: fadeIn 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Header Section */
@@ -17,7 +23,6 @@
   align-items: center;
   justify-content: center;
   padding: var(--spacing-lg);
-  animation: headerFadeIn 0.8s ease-out forwards;
 }
 
 .login-branding {
@@ -25,6 +30,17 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
+}
+
+.logo-container.minimized {
+  padding: 12px;
+  border-radius: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
 }
 
 .login-title {
@@ -45,11 +61,8 @@
 .login-form-panel {
   flex: 1;
   background: white;
-  border-top-left-radius: 40px;
-  border-top-right-radius: 40px;
   padding: 40px 32px;
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.05);
-  animation: panelSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .login-form {

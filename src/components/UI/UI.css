@@ -75,6 +75,24 @@
   box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.05);
 }
 
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 44px;
+}
+
+.select-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #9CA3AF;
+  display: flex;
+  align-items: center;
+}
+
 .input-toggle {
   position: absolute;
   right: 14px;

@@ -9,7 +9,7 @@ import './Login.css';
  * Login Page Component
  * Features a high-fidelity mobile-first layout with smooth transitions.
  */
-const Login = ({ onLoginSuccess }) => {
+const Login = ({ onLoginSuccess, onRegisterClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,9 @@ const Login = ({ onLoginSuccess }) => {
       {/* Top Section: Blue Header */}
       <div className="login-header">
         <div className="login-branding">
-          <LogoIcon size={80} className="login-logo" />
+          <div className="logo-container minimized">
+            <LogoIcon size={60} className="login-logo" />
+          </div>
           <h1 className="login-title">LogIt</h1>
           <p className="login-subtitle">Sign in to your account</p>
         </div>
@@ -79,7 +81,7 @@ const Login = ({ onLoginSuccess }) => {
           </div>
 
           <p className="login-footer">
-            Don't have an account? <button type="button" className="text-link bold">Register</button>
+            Don't have an account? <button type="button" className="text-link bold" onClick={onRegisterClick}>Register</button>
           </p>
         </form>
       </div>

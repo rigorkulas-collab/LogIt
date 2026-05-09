@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import Splash from './components/Splash/Splash'
 import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
 import './index.css'
 
 function App() {
-  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, DASHBOARD
+  const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, DASHBOARD
   const [user, setUser] = useState(null);
 
   const handleSplashComplete = () => {
@@ -16,6 +17,11 @@ function App() {
     setAppState('DASHBOARD');
   };
 
+  const handleRegisterSuccess = () => {
+    // After registration, send them to login
+    setAppState('LOGIN');
+  };
+
   return (
     <div className="App">
       {appState === 'SPLASH' && (
@@ -23,7 +29,17 @@ function App() {
       )}
 
       {appState === 'LOGIN' && (
-        <Login onLoginSuccess={handleLoginSuccess} />
+        <Login 
+          onLoginSuccess={handleLoginSuccess} 
+          onRegisterClick={() => setAppState('REGISTER')}
+        />
+      )}
+
+      {appState === 'REGISTER' && (
+        <Register 
+          onBackToLogin={() => setAppState('LOGIN')} 
+          onRegisterSuccess={handleRegisterSuccess}
+        />
       )}
 
       {appState === 'DASHBOARD' && (
@@ -32,7 +48,7 @@ function App() {
             Welcome, {user?.name}!
           </h2>
           <p style={{ color: '#6B7280', marginTop: '16px', maxWidth: '300px' }}>
-            You have successfully logged in to LogItV2. The Dashboard implementation is next!
+            You have successfully logged in to LogItV2.
           </p>
           <button 
             onClick={() => setAppState('LOGIN')}
