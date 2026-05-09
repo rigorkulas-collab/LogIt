@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from '../UI/Modal';
 import Input from '../UI/Input';
+import Select from '../UI/Select';
 import Button from '../UI/Button';
 import './EditProfileModal.css';
 
@@ -9,15 +10,32 @@ import './EditProfileModal.css';
  * Form for updating school, company, and OJT details.
  */
 const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
-  const [formData, setFormData] = useState(profileData);
+  const schools = [
+    { value: 'Polytechnic University of the Philippines', label: 'Polytechnic University of the Philippines' },
+    { value: 'University of Santo Tomas', label: 'University of Santo Tomas' },
+    { value: 'De La Salle University', label: 'De La Salle University' },
+    { value: 'University of the Philippines', label: 'University of the Philippines' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  const [formData, setFormData] = useState(null);
 
   useEffect(() => {
-    setFormData(profileData);
+    if (profileData) {
+      const isInList = schools.some(s => s.value === profileData.school);
+      setFormData({
+        ...profileData,
+        school: isInList ? profileData.school : 'other',
+        otherSchool: isInList ? '' : profileData.school
+      });
+    }
   }, [profileData, isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdate(formData);
+    const finalSchool = formData.school === 'other' ? formData.otherSchool : formData.school;
+    const { otherSchool, ...updateData } = formData;
+    onUpdate({ ...updateData, school: finalSchool });
   };
 
   if (!formData) return null;
@@ -25,13 +43,24 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Edit Profile">
       <form onSubmit={handleSubmit} className="edit-profile-form">
-        <Input
-          label="School"
+        <Select
+          label="School / University"
           name="school"
           value={formData.school}
+          options={schools}
           onChange={(e) => setFormData({ ...formData, school: e.target.value })}
           required
         />
+
+        {formData.school === 'other' && (
+          <Input
+            label="Specify School"
+            name="otherSchool"
+            value={formData.otherSchool}
+            onChange={(e) => setFormData({ ...formData, otherSchool: e.target.value })}
+            required
+          />
+        )}
         
         <Input
           label="Company"

@@ -41,11 +41,18 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
     setLoading(true);
     try {
       const { email, password, ...profileFields } = formData;
-      // Map fullName to name for profileData consistency
+      
+      // Determine the actual school name to save
+      const finalSchool = profileFields.school === 'other' ? profileFields.otherSchool : profileFields.school;
+
       const profileData = {
         name: profileFields.fullName,
-        ...profileFields
+        ...profileFields,
+        school: finalSchool
       };
+      
+      // Remove otherSchool from the final document to keep it clean
+      delete profileData.otherSchool;
       
       await authService.register(email, password, profileData);
       onRegisterSuccess();
@@ -57,10 +64,10 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
   };
 
   const schools = [
-    { value: 'pup', label: 'Polytechnic University of the Philippines' },
-    { value: 'ust', label: 'University of Santo Tomas' },
-    { value: 'dlsu', label: 'De La Salle University' },
-    { value: 'up', label: 'University of the Philippines' },
+    { value: 'Polytechnic University of the Philippines', label: 'Polytechnic University of the Philippines' },
+    { value: 'University of Santo Tomas', label: 'University of Santo Tomas' },
+    { value: 'De La Salle University', label: 'De La Salle University' },
+    { value: 'University of the Philippines', label: 'University of the Philippines' },
     { value: 'other', label: 'Other' }
   ];
 

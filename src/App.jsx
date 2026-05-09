@@ -12,6 +12,7 @@ import LogHistory from './pages/Logs/LogHistory'
 import Profile from './pages/Profile/Profile'
 import AddLogModal from './components/Dashboard/AddLogModal'
 import EditProfileModal from './components/Profile/EditProfileModal'
+import authService from './services/authService'
 import logService from './services/logService'
 import './index.css'
 
