@@ -1,0 +1,71 @@
+.add-log-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+
+.mood-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mood-grid {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 0 16px;
+  scrollbar-width: none;
+}
+
+.mood-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.mood-btn {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #F9FAFB;
+  border: 1.5px solid #F3F4F6;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+.mood-btn.active {
+  background: white;
+  border-color: var(--primary-deep);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
+  transform: translateY(-2px);
+}
+
+.mood-emoji {
+  font-size: 1.5rem;
+}
+
+.mood-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6B7280;
+}
+
+.mood-btn.active .mood-label {
+  color: var(--primary-deep);
+}
+
+.submit-log-btn {
+  margin-top: 12px;
+  height: 56px;
+  border-radius: 16px;
+}

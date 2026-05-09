@@ -21,10 +21,8 @@ const Login = ({ onLoginSuccess, onRegisterClick, onForgotClick }) => {
     setLoading(true);
 
     try {
-      const result = await authService.login(email, password);
-      if (result.success) {
-        onLoginSuccess(result.user);
-      }
+      const userData = await authService.login(email, password);
+      onLoginSuccess(userData);
     } catch (err) {
       setError(err.message || 'An error occurred during login.');
     } finally {

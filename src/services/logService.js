@@ -81,6 +81,18 @@ export const logService = {
     return MOCK_LOGS;
   },
 
+  addLog: async (newLog) => {
+    const logEntry = {
+      ...newLog,
+      id: Math.random().toString(36).substr(2, 9),
+      day: new Date(newLog.date).getDate().toString(),
+      month: new Date(newLog.date).toLocaleString('default', { month: 'short' }).toUpperCase(),
+      status: 'PENDING'
+    };
+    MOCK_LOGS.unshift(logEntry);
+    return logEntry;
+  },
+
   getProgressData: async () => {
     return {
       percentage: 60,
