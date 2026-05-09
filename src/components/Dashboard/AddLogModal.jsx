@@ -66,6 +66,7 @@ const AddLogModal = ({ isOpen, onClose, onAdd }) => {
       <form onSubmit={handleSubmit} className="add-log-form">
         <Input
           label="Activity Description"
+          name="title"
           placeholder="What did you do today?"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -75,6 +76,7 @@ const AddLogModal = ({ isOpen, onClose, onAdd }) => {
         <div className="form-row">
           <Input
             label="Date"
+            name="date"
             type="date"
             value={formData.date}
             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
@@ -85,6 +87,7 @@ const AddLogModal = ({ isOpen, onClose, onAdd }) => {
         <div className="form-row">
           <Input
             label="Start Time"
+            name="startTime"
             type="time"
             value={formData.startTime}
             onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
@@ -92,6 +95,7 @@ const AddLogModal = ({ isOpen, onClose, onAdd }) => {
           />
           <Input
             label="End Time"
+            name="endTime"
             type="time"
             value={formData.endTime}
             onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}

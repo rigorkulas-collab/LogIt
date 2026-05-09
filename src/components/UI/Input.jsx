@@ -5,20 +5,22 @@ import './UI.css';
 /**
  * Reusable Input Component with Label and optional Password Visibility Toggle
  */
-const Input = ({ label, type = 'text', placeholder, value, onChange, name, required = false, className = "" }) => {
+const Input = ({ label, type = 'text', placeholder, value, onChange, name, id, required = false, className = "" }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === 'password';
+  const inputId = id || name || `input-${label?.toLowerCase().replace(/\s+/g, '-')}`;
 
   return (
     <div className={`input-group ${className}`}>
-      {label && <label className="input-label">{label}</label>}
+      {label && <label htmlFor={inputId} className="input-label">{label}</label>}
       <div className="input-wrapper">
         <input
+          id={inputId}
           type={isPassword ? (showPassword ? 'text' : 'password') : type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          name={name}
+          name={name || inputId}
           required={required}
           className="form-input"
         />

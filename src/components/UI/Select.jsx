@@ -5,13 +5,16 @@ import './UI.css';
 /**
  * Reusable Select Component
  */
-const Select = ({ label, options = [], value, onChange, placeholder, name, required = false, className = "" }) => {
+const Select = ({ label, options = [], value, onChange, placeholder, name, id, required = false, className = "" }) => {
+  const selectId = id || name || `select-${label?.toLowerCase().replace(/\s+/g, '-')}`;
+
   return (
     <div className={`input-group ${className}`}>
-      {label && <label className="input-label">{label}</label>}
+      {label && <label htmlFor={selectId} className="input-label">{label}</label>}
       <div className="input-wrapper">
         <select
-          name={name}
+          id={selectId}
+          name={name || selectId}
           value={value}
           onChange={onChange}
           required={required}

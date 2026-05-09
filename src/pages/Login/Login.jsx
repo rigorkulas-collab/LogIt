@@ -49,6 +49,8 @@ const Login = ({ onLoginSuccess, onRegisterClick, onForgotClick }) => {
           {error && <div className="login-error">{error}</div>}
 
           <Input
+            id="login-email"
+            name="email"
             label="Email Address"
             type="email"
             placeholder="student@school.edu"
@@ -58,6 +60,8 @@ const Login = ({ onLoginSuccess, onRegisterClick, onForgotClick }) => {
           />
 
           <Input
+            id="login-password"
+            name="password"
             label="Password"
             type="password"
             placeholder="Enter password"

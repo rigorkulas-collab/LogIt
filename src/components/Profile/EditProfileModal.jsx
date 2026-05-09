@@ -25,6 +25,7 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
       <form onSubmit={handleSubmit} className="edit-profile-form">
         <Input
           label="School"
+          name="school"
           value={formData.school}
           onChange={(e) => setFormData({ ...formData, school: e.target.value })}
           required
@@ -32,6 +33,7 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
         
         <Input
           label="Company"
+          name="company"
           value={formData.company}
           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
           required
@@ -39,6 +41,7 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
 
         <Input
           label="Position"
+          name="position"
           value={formData.position}
           onChange={(e) => setFormData({ ...formData, position: e.target.value })}
           required
@@ -47,6 +50,7 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
         <div className="form-row">
           <Input
             label="Required Hrs"
+            name="requiredHrs"
             type="number"
             value={formData.requiredHrs}
             onChange={(e) => setFormData({ ...formData, requiredHrs: e.target.value })}
@@ -54,6 +58,7 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
           />
           <Input
             label="Batch"
+            name="batch"
             value={formData.batch}
             onChange={(e) => setFormData({ ...formData, batch: e.target.value })}
             required
@@ -62,6 +67,7 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
 
         <Input
           label="Supervisor"
+          name="supervisor"
           value={formData.supervisor}
           onChange={(e) => setFormData({ ...formData, supervisor: e.target.value })}
           required
@@ -69,6 +75,7 @@ const EditProfileModal = ({ isOpen, onClose, profileData, onUpdate }) => {
 
         <Input
           label="Start Date"
+          name="startDate"
           type="date"
           value={formData.startDate}
           onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
