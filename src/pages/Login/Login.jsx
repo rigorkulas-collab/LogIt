@@ -3,12 +3,9 @@ import { LogoIcon } from '../../components/Icons/Logo';
 import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import authService from '../../services/authService';
+import { getFriendlyErrorMessage } from '../../lib/errorUtils';
 import './Login.css';
 
-/**
- * Login Page Component
- * Features a high-fidelity mobile-first layout with smooth transitions.
- */
 const Login = ({ onLoginSuccess, onRegisterClick, onForgotClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +21,7 @@ const Login = ({ onLoginSuccess, onRegisterClick, onForgotClick }) => {
       const userData = await authService.login(email, password);
       onLoginSuccess(userData);
     } catch (err) {
-      setError(err.message || 'An error occurred during login.');
+      setError(getFriendlyErrorMessage(err));
     } finally {
       setLoading(false);
     }

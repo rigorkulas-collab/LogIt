@@ -3,6 +3,7 @@ import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import Select from '../../components/UI/Select';
 import authService from '../../services/authService';
+import { getFriendlyErrorMessage } from '../../lib/errorUtils';
 import './Register.css';
 
 const Register = ({ onBackToLogin, onRegisterSuccess }) => {
@@ -57,7 +58,7 @@ const Register = ({ onBackToLogin, onRegisterSuccess }) => {
       await authService.register(email, password, profileData);
       onRegisterSuccess();
     } catch (err) {
-      setError(err.message || 'Failed to create account');
+      setError(getFriendlyErrorMessage(err));
     } finally {
       setLoading(false);
     }
