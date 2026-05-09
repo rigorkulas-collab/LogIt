@@ -11,6 +11,38 @@ import './HoursTracker.css';
 const HoursTracker = ({ onBack, onTabChange, onFabClick, profileData }) => {
   const [progress, setProgress] = useState(null);
   const [daysLogged, setDaysLogged] = useState(0);
+  const [weeklyStats, setWeeklyStats] = useState([
+    { label: 'Mon', value: 0 },
+    { label: 'Tue', value: 0 },
+    { label: 'Wed', value: 0 },
+    { label: 'Thu', value: 0 },
+    { label: 'Fri', value: 0 },
+    { label: 'Sat', value: 0 },
+    { label: 'Sun', value: 0 }
+  ]);
+
+  const calculateWeeklyData = (logs) => {
+    const now = new Date();
+    const currentDay = now.getDay();
+    const diff = now.getDate() - currentDay + (currentDay === 0 ? -6 : 1);
+    const monday = new Date(now.setDate(diff));
+    monday.setHours(0, 0, 0, 0);
+
+    const weekLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const stats = weekLabels.map(label => ({ label, value: 0 }));
+
+    logs.forEach(log => {
+      const logDate = new Date(log.date);
+      if (logDate >= monday) {
+        const dayIdx = logDate.getDay();
+        const targetIdx = dayIdx === 0 ? 6 : dayIdx - 1;
+        if (targetIdx >= 0 && targetIdx < 7) {
+          stats[targetIdx].value += Number(log.hours) || 0;
+        }
+      }
+    });
+    return stats;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,19 +52,12 @@ const HoursTracker = ({ onBack, onTabChange, onFabClick, profileData }) => {
       const allLogs = await logService.getAllLogs();
       const uniqueDates = new Set(allLogs.map(log => log.date));
       setDaysLogged(uniqueDates.size);
+      
+      const stats = calculateWeeklyData(allLogs);
+      setWeeklyStats(stats);
     };
     fetchData();
   }, [profileData]);
-
-  const weeklyData = [
-    { label: 'Mon', value: 8 },
-    { label: 'Tue', value: 8 },
-    { label: 'Wed', value: 8 },
-    { label: 'Thu', value: 8 },
-    { label: 'Fri', value: 6 },
-    { label: 'Sat', value: 0 },
-    { label: 'Sun', value: 0 }
-  ];
 
   return (
     <div className="hours-page">
@@ -69,7 +94,7 @@ const HoursTracker = ({ onBack, onTabChange, onFabClick, profileData }) => {
             <span className="chart-icon">📊</span>
             <h3 className="chart-title">This Week</h3>
           </div>
-          <BarChart data={weeklyData} />
+          <BarChart data={weeklyStats} />
         </section>
 
         <section className="estimated-card">
