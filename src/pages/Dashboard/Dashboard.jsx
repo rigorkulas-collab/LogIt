@@ -76,7 +76,7 @@ const Dashboard = ({ user, onTabChange }) => {
       <section className="logs-section">
         <div className="section-header">
           <h3 className="section-title">Recent Logs</h3>
-          <button className="text-link">See all</button>
+          <button className="text-link" onClick={() => onTabChange('logs')}>See all</button>
         </div>
         
         <div className="logs-list">

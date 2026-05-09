@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: -20px; /* Slight overlap for a modern look */
+  margin-top: 8px;
 }
 
 .profile-info-card {
@@ -77,8 +77,8 @@
 
 .profile-row-value {
   font-size: 0.9375rem;
-  font-weight: 700;
-  color: #1A1A2E;
+  font-weight: 600;
+  color: #4B5563;
   text-align: right;
 }
 
@@ -97,7 +97,7 @@
 
 .btn-outline-danger {
   background: white;
-  border: 1.5px solid #FEE2E2;
+  border: 1.5px solid #FECACA;
   color: #EF4444;
 }
 
