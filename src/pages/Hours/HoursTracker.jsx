@@ -11,7 +11,7 @@ import './HoursTracker.css';
  * Hours Tracker Page Component
  * Detailed progress visualization and weekly stats.
  */
-const HoursTracker = ({ onBack, onTabChange }) => {
+const HoursTracker = ({ onBack, onTabChange, onFabClick }) => {
   const weeklyData = [
     { label: 'Mon', value: 8 },
     { label: 'Tue', value: 8 },
@@ -71,7 +71,11 @@ const HoursTracker = ({ onBack, onTabChange }) => {
         </section>
       </div>
 
-      <BottomNav activeTab="hours" onTabChange={onTabChange} />
+      <BottomNav 
+        activeTab="hours" 
+        onTabChange={onTabChange} 
+        onFabClick={onFabClick}
+      />
     </div>
   );
 };

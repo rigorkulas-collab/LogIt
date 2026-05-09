@@ -4,7 +4,7 @@ import { Home, ClipboardList, Clock, User, Plus } from 'lucide-react';
 /**
  * Bottom Navigation and Floating Action Button component
  */
-const BottomNav = ({ activeTab = 'home', onTabChange }) => {
+const BottomNav = ({ activeTab = 'home', onTabChange, onFabClick }) => {
   const tabs = [
     { id: 'home', icon: Home, label: 'Home' },
     { id: 'logs', icon: ClipboardList, label: 'Logs' },
@@ -15,7 +15,11 @@ const BottomNav = ({ activeTab = 'home', onTabChange }) => {
   return (
     <>
       {/* Floating Action Button */}
-      <button className="fab-button" aria-label="Add new log">
+      <button 
+        className="fab-button" 
+        aria-label="Add new log"
+        onClick={onFabClick}
+      >
         <Plus size={32} />
       </button>
 

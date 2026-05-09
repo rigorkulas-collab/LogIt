@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Plus } from 'lucide-react';
 import CircularProgress from '../../components/Dashboard/CircularProgress';
 import LogCard from '../../components/Dashboard/LogCard';
 import BottomNav from '../../components/Dashboard/BottomNav';
-import AddLogModal from '../../components/Dashboard/AddLogModal';
 import logService from '../../services/logService';
 import './Dashboard.css';
 
@@ -10,11 +10,10 @@ import './Dashboard.css';
  * Dashboard Page Component
  * The main hub of the application showing progress and recent logs.
  */
-const Dashboard = ({ user, onTabChange }) => {
+const Dashboard = ({ user, onTabChange, onFabClick }) => {
   const [logs, setLogs] = useState([]);
   const [progress, setProgress] = useState(null);
   const [activeTab, setActiveTab] = useState('home');
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
@@ -26,12 +25,6 @@ const Dashboard = ({ user, onTabChange }) => {
     const progressData = await logService.getProgressData();
     setLogs(logsData);
     setProgress(progressData);
-  };
-
-  const handleAddLog = async (newLog) => {
-    await logService.addLog(newLog);
-    setIsModalOpen(false);
-    fetchData(); // Refresh list
   };
 
   useEffect(() => {
@@ -95,20 +88,12 @@ const Dashboard = ({ user, onTabChange }) => {
         </div>
       </section>
 
-      {/* Floating Action Button */}
-      <button className="fab-btn" onClick={() => setIsModalOpen(true)}>
-        <Plus size={24} />
-      </button>
-
-      {/* Add Log Modal */}
-      <AddLogModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onAdd={handleAddLog} 
-      />
-
       {/* Navigation */}
-      <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
+      <BottomNav 
+        activeTab={activeTab} 
+        onTabChange={handleTabChange} 
+        onFabClick={onFabClick}
+      />
     </div>
   );
 };

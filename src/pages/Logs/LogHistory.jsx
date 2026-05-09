@@ -10,7 +10,7 @@ import './LogHistory.css';
  * Log History Page Component
  * Shows a searchable, filterable list of all logged hours.
  */
-const LogHistory = ({ onBack, onTabChange }) => {
+const LogHistory = ({ onBack, onTabChange, onFabClick }) => {
   const [logs, setLogs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
@@ -75,7 +75,11 @@ const LogHistory = ({ onBack, onTabChange }) => {
         )}
       </div>
 
-      <BottomNav activeTab="logs" onTabChange={onTabChange} />
+      <BottomNav 
+        activeTab="logs" 
+        onTabChange={onTabChange} 
+        onFabClick={onFabClick}
+      />
     </div>
   );
 };

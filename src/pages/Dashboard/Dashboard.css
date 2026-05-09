@@ -230,7 +230,7 @@
   justify-content: center;
   box-shadow: 0 12px 24px rgba(30, 58, 138, 0.3);
   cursor: pointer;
-  z-index: 100;
+  z-index: 9999;
   transition: transform 0.2s ease;
 }
 

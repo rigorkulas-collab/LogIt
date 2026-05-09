@@ -7,7 +7,7 @@ import './Profile.css';
  * Profile Page Component
  * Shows user details, school/company info, and account actions.
  */
-const Profile = ({ user, onLogout, onTabChange }) => {
+const Profile = ({ user, onLogout, onTabChange, onFabClick }) => {
   // Mock data for the OJT specific details
   const ojtDetails = {
     school: "Far Eastern University",
@@ -65,7 +65,11 @@ const Profile = ({ user, onLogout, onTabChange }) => {
         </div>
       </div>
 
-      <BottomNav activeTab="profile" onTabChange={onTabChange} />
+      <BottomNav 
+        activeTab="profile" 
+        onTabChange={onTabChange} 
+        onFabClick={onFabClick}
+      />
     </div>
   );
 };

@@ -7,11 +7,14 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import HoursTracker from './pages/Hours/HoursTracker'
 import LogHistory from './pages/Logs/LogHistory'
 import Profile from './pages/Profile/Profile'
+import AddLogModal from './components/Dashboard/AddLogModal'
+import logService from './services/logService'
 import './index.css'
 
 function App() {
   const [appState, setAppState] = useState('SPLASH'); // SPLASH, LOGIN, REGISTER, FORGOT_PASSWORD, DASHBOARD, HOURS, LOGS, PROFILE
   const [user, setUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSplashComplete = () => {
     setAppState('LOGIN');
@@ -29,6 +32,12 @@ function App() {
   const handleLogout = () => {
     setUser(null);
     setAppState('LOGIN');
+  };
+
+  const handleAddLog = async (newLog) => {
+    await logService.addLog(newLog);
+    setIsModalOpen(false);
+    // We might need a way to refresh children, but for now this handles the save
   };
 
   const navigateToTab = (tabId) => {
@@ -67,6 +76,7 @@ function App() {
         <Dashboard 
           user={user} 
           onTabChange={navigateToTab}
+          onFabClick={() => setIsModalOpen(true)}
         />
       )}
 
@@ -74,6 +84,7 @@ function App() {
         <HoursTracker 
           onBack={() => setAppState('DASHBOARD')} 
           onTabChange={navigateToTab}
+          onFabClick={() => setIsModalOpen(true)}
         />
       )}
 
@@ -81,6 +92,7 @@ function App() {
         <LogHistory 
           onBack={() => setAppState('DASHBOARD')} 
           onTabChange={navigateToTab}
+          onFabClick={() => setIsModalOpen(true)}
         />
       )}
 
@@ -89,8 +101,16 @@ function App() {
           user={user} 
           onLogout={handleLogout}
           onTabChange={navigateToTab}
+          onFabClick={() => setIsModalOpen(true)}
         />
       )}
+
+      {/* Global Modal */}
+      <AddLogModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onAdd={handleAddLog} 
+      />
     </div>
   )
 }
